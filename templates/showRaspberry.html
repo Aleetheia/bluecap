@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+ 
+<head>
+    <title>BlueCap</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    
+    <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <link href="../static/css/signup.css" rel="stylesheet">
+    
+
+</head>
+ 
+<body>
+ 
+    <div class="container">
+        <nav>
+          <ul class="nav nav-pills pull-right">
+            <li role="presentation" ><a href="/">Accueil</a></li>
+            <li role="presentation"><a href="showShowRaspberry">Raspberry</a></li>
+            <li role="presentation"><a href="showAddRaspberry">Ajouter un Raspberry</a></li>
+          </ul>
+        </nav>
+        <h3 class="text-muted">BlueCap</h3>
+        
+ <div id="demo">
+  <h1>Liste des raspberry</h1>
+
+  <div class="table-responsive-vertical shadow-z-1">
+  <table id="table" class="table table-hover table-mc-light-blue">
+      <thead>
+       
+        <tr>
+        <th>Date d'ajout</th>
+        <th>Id</th>
+        <th>Adresse MAC</th>
+        <th>Pays</th>
+        <th>Ville</th>
+        <th>Batiment</th>
+        <th>Etage</th>
+        <th>Bench</th>
+        <th>Nb de postes</th>
+        </tr>
+      </thead>
+      <tbody>
+          {% for row in data %}
+          <tr>
+            {% for d in row %}
+            <td>{{ d }}</td>
+            {% endfor %}
+          </tr>
+    {% endfor %}
+                <tr>
+        </tr>
+      </tbody>
+    </table>
+      
+      
+      
+      
+      
+  </div>
+</div>              
+</div>
+</body>
+ 
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>BlueCap - Enregistrement d'un Raspberry</title>
+ 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="../static/js/signUp.js"></script>
+
+    <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <link href="../static/css/signup.css" rel="stylesheet">
+    
+  </head>
+ 
+  <body>
+    <div class="container" id="content">
+      <div class="header">
+        <nav>
+          <ul class="nav nav-pills pull-right">
+            <li role="presentation" ><a href="/">Accueil</a></li>
+            <li role="presentation"><a href="showShowRaspberry">Raspberry</a></li>
+            <li role="presentation"><a href="showAddRaspberry">Ajouter un Raspberry</a></li>
+          </ul>
+        </nav>
+        <h1 class="text-muted">BlueCap</h1>
+      </div>
+ 
+      <div class="jumbotron">
+        <h2>Enregistrement d'un Raspberry</h2>
+          
+        {% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+{% block body %}{% endblock %}
+          
+          
+          
+        <form class="form">
+            
+        <label for="inputId" class='label required'></label>
+        <input type="pays" name="inputId" id="inputId" class='text-input' placeholder="Id du Raspberry" required autofocus>
+
+        <label for="inputEmail" class='label required'></label>
+        <input type="pays" name="inputCountry" id="inputCountry" class='text-input' placeholder="Pays" required autofocus>
+        
+        <label for="inputEmail" class='label required'></label>
+        <input type="ville" name="inputCity" id="inputCity" class='text-input' placeholder="Ville" required autofocus>
+        
+        <label for="inputEmail" class='label required'></label>
+        <input type="batiment" name="inputBuilding" id="inputBuilding" class='text-input' placeholder="Batiment" required autofocus>
+
+        <label for="inputEmail" class='label required'></label>
+        <input type="etage" name="inputFloor" id="inputFloor" class='text-input' placeholder="Etage" required autofocus>
+
+        <label for="inputEmail" class='label required'></label>
+        <input type="room" name="inputBench" id="inputBench" class='text-input' placeholder="Pièce ou bench" required autofocus>
+            
+        <label for="inputEmail" class='label required'></label>
+        <input type="desks" name="inputDesks" id="inputDesks" class='text-input' placeholder="Nombre de postes de la pièce ou du bench" required autofocus>    
+            
+        <button id="btnAddRasp" class="button" type="button">Ajouter</button>      
+      </form>
+	   </div>    
+          
+          
+      </div>
+</div>
+
+
+  </body>
+    
+</html>
