@@ -1,1 +1,1 @@
-web: gunicorn bluecap:app
+web: gunicorn app
