@@ -1,1 +1,1 @@
-web: gunicorn bluecap.wsgi
+web: gunicorn app
