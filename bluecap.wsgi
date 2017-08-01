@@ -1,1 +1,1 @@
-from bluecap import app as application
+import app as application
