@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, json
-from flask.ext.mysql import MySQL
+#from flask.ext.mysql import MySQL
+import MySQLdb as sql
 
 mysql = MySQL()
 app = Flask(__name__)
@@ -14,7 +15,6 @@ mysql.init_app(app)
 def main():
     def load_data_from_mysql_to_rasp():
         from uuid import getnode as get_mac
-        import MySQLdb as sql
         h = hex(get_mac())[2:].zfill(12)
         addr_mac = (":".join(i + j for i, j in zip(h[::2], h[1::2])))
         db = sql.connect(host='localhost', database='blue_captain', user='root', password='password')
