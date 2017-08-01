@@ -1,0 +1,1 @@
+from bluecap import app as application
