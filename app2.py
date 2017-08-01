@@ -19,13 +19,13 @@ def main():
         addr_mac = (":".join(i + j for i, j in zip(h[::2], h[1::2])))
         db = sql.connect(host='us-cdbr-iron-east-05.cleardb.net', database='heroku_8ed35d7a87fe1ad', user='b99b4e9fb9ac2b', password='8cf9b237')
         cursor = db.cursor()
-        cursor.execute("UPDATE blue_captain.raspberries SET mac_address=%s WHERE registered=FALSE",[addr_mac])
+        cursor.execute("UPDATE raspberries SET mac_address=%s WHERE registered=FALSE",[addr_mac])
         cursor.execute('SELECT num_desks FROM raspberries WHERE mac_address=%s',[addr_mac])
         results = cursor.fetchall()
         num_desks=[]
         for row in results:
             num_desks.append(row[0])
-        cursor.execute("UPDATE blue_captain.raspberries SET registered=TRUE WHERE mac_address=%s",[addr_mac])
+        cursor.execute("UPDATE raspberries SET registered=TRUE WHERE mac_address=%s",[addr_mac])
         db.commit()
         db.close()
         return num_desks[0]
@@ -118,7 +118,7 @@ def analysis():
         return df
 
     def load_data_mysql():
-        db_connection = sql.connect(host='localhost', database='blue_captain', user='root', password='password')
+        db_connection = sql.connect(host='us-cdbr-iron-east-05.cleardb.net', database='heroku_8ed35d7a87fe1ad', user='b99b4e9fb9ac2b', password='8cf9b237')
         df = pd.read_sql('SELECT rasp_id,date,counter FROM counter_values', con=db_connection)
         print(df)
         df['date'] = pd.to_datetime(df['date'])
