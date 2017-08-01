@@ -5,10 +5,10 @@ import MySQLdb as sql
 mysql = MySQL()
 app = Flask(__name__)
 
-app.config['MYSQL_DATABASE_USER'] = 'root'
-app.config['MYSQL_DATABASE_PASSWORD'] = 'password'
-app.config['MYSQL_DATABASE_DB'] = 'blue_captain'
-app.config['MYSQL_DATABASE_HOST'] = 'localhost'
+app.config['MYSQL_DATABASE_USER'] = 'b99b4e9fb9ac2b'
+app.config['MYSQL_DATABASE_PASSWORD'] = '8cf9b237'
+app.config['MYSQL_DATABASE_DB'] = 'heroku_8ed35d7a87fe1ad'
+app.config['MYSQL_DATABASE_HOST'] = 'us-cdbr-iron-east-05.cleardb.net'
 mysql.init_app(app)
 
 @app.route("/")
