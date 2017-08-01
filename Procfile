@@ -1,1 +1,1 @@
-web: gunicorn bluetest.wsgi
+web: gunicorn bluecap.wsgi
