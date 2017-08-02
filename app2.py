@@ -70,7 +70,6 @@ def addRaspberry():
 def analysis():
     import pandas as pd
     import math as math
-    import MySQLdb as sql
 
     def load_data_mysql():
         db_connection = sql.connect(host='us-cdbr-iron-east-05.cleardb.net', database='heroku_8ed35d7a87fe1ad', user='b99b4e9fb9ac2b', password='8cf9b237')
