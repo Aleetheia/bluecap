@@ -12,9 +12,9 @@ def main():
     return render_template('index.html')
 
 
-#@app.route("/showShowRaspberry")
-#def showShowRaspberry():
-    #return render_template('showRaspberry.html')
+@app.route("/showsshowRaspberry")
+def showShowRaspberry():
+    return render_template('showRaspberry.html')
 
 @app.route("/showShowRaspberry",methods=['GET'])
 def showRaspberry():
@@ -57,7 +57,7 @@ def addRaspberry():
             db.close()
             flash('Raspberry ajouté !')
             #return redirect("/showShowRaspberry", code=302)
-            return redirect(url_for('showRaspberry'))
+            return redirect(url_for('showShowRaspberry'))
         #return json.dumps({'message':'Raspberry ajouté !'}) 
 
         #else:
