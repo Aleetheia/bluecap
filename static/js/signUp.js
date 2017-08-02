@@ -8,7 +8,6 @@ $(function(){
 			success: function(response){
 				//console.log(response);
                 alert("Raspberry ajouté !");
-                window.location.href = "https:\\bluecap.herokuapp.com/showShowRaspberry";
 			},
 			error: function(error){
 				console.log(error);
