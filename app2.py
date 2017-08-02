@@ -73,11 +73,6 @@ def analysis():
     import math as math
     import MySQLdb as sql
 
-    def load_csv(csv_file):   
-        df = pd.read_csv(csv_file,sep=';',names = ['Rasp', 'DateTime', 'Counter'])
-        df['DateTime'] = pd.to_datetime(df['DateTime'])
-        return df
-
     def load_data_mysql():
         db_connection = sql.connect(host='us-cdbr-iron-east-05.cleardb.net', database='heroku_8ed35d7a87fe1ad', user='b99b4e9fb9ac2b', password='8cf9b237')
         df = pd.read_sql('SELECT rasp_id,date,counter FROM counter_values', con=db_connection)
@@ -85,7 +80,7 @@ def analysis():
         df['date'] = pd.to_datetime(df['date'])
         return df
 
-    def rates(nb_of_desks, data,frequency):
+    def rates(nb_of_desks, data, frequency):
         df = data.set_index('date').resample(frequency)['counter'].max()
         df = df.fillna(0)
         taux=[]
