@@ -32,19 +32,17 @@ def showShowRaspberry():
 @app.route("/showRaspberry",methods=['GET'])
 def showRaspberry():
     try:
-        conn = mysql.connect()    
-        cursor = conn.cursor()         
+        db = sql.connect(host='us-cdbr-iron-east-05.cleardb.net', database='heroku_8ed35d7a87fe1ad', user='b99b4e9fb9ac2b', password='8cf9b237')   
+        cursor = db.cursor()     
         cursor.callproc('show_raspberry')
-        #data = cursor.fetchall()
-        print(load_data_from_mysql_to_rasp())
-
+        data = cursor.fetchall()
         return render_template('showRaspberry.html', data = data)
         
     except Exception as e:
         return json.dumps({'error':str(e)})
     finally:
         cursor.close() 
-        conn.close()
+        db.close()
 
 @app.route('/showAddRaspberry')
 def showAddRaspberry():
