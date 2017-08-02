@@ -12,6 +12,8 @@ $(function(){
 				console.log(error);
 			}
 		});
+        
+        alert("test");
+        
 	});
 });
-
