@@ -56,10 +56,11 @@ def addRaspberry():
             db.commit()
             db.close()
             flash('Raspberry ajouté !')
-            return json.dumps({'message':'Raspberry ajouté !'}) 
+            return redirect("/showShowRaspberry", code=302)
+        #return json.dumps({'message':'Raspberry ajouté !'}) 
 
-        else:
-            return json.dumps({'html':'<span>Des champs requis sont manquant</span>'})
+        #else:
+            #return json.dumps({'html':'<span>Des champs requis sont manquant</span>'})
 
     except Exception as e:
         return json.dumps({'error':str(e)})
