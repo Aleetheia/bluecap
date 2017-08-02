@@ -12,22 +12,7 @@ def main():
 
 @app.route("/showShowRaspberry")
 def showShowRaspberry():
-    try:
-        db = sql.connect(host='us-cdbr-iron-east-05.cleardb.net', database='heroku_8ed35d7a87fe1ad', user='b99b4e9fb9ac2b', password='8cf9b237')   
-        cursor = db.cursor()         
-        cursor.callproc('show_raspberry')
-        data = cursor.fetchall()
-        db.close()
-        
-        return render_template('showRaspberry.html', data = data)
-        
-    except Exception as e:
-        return json.dumps({'error':str(e)})
-    finally:
-        cursor.close() 
-        conn.close()
-
-    #return render_template('showRaspberry.html')
+    return render_template('showRaspberry.html')
 
 @app.route("/showRaspberry",methods=['GET'])
 def showRaspberry():
@@ -47,6 +32,7 @@ def showRaspberry():
 @app.route('/showAddRaspberry')
 def showAddRaspberry():
     return render_template('addRaspberry.html')
+
 
 @app.route('/addRaspberry',methods=['POST'])
 def addRaspberry():
