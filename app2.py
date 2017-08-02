@@ -53,7 +53,8 @@ def addRaspberry():
             data = cursor.fetchall()
             if len(data) is 0:
                 db.commit()
-                return json.dumps({'message':'Raspberry ajouté !'})    
+                return render_template('addRaspberry.html')
+                #return json.dumps({'message':'Raspberry ajouté !'})    
             else:
                 return json.dumps({'error':str(data[0])})
             cursor.close()
