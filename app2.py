@@ -10,11 +10,11 @@ def main():
     return render_template('index.html')
 
 
-@app.route("/showShowRaspberry")
-def showShowRaspberry():
-    return render_template('showRaspberry.html')
+#@app.route("/showShowRaspberry")
+#def showShowRaspberry():
+    #return render_template('showRaspberry.html')
 
-@app.route("/showRaspberry",methods=['GET'])
+@app.route("/showShowRaspberry",methods=['GET'])
 def showRaspberry():
     try:
         db = sql.connect(host='us-cdbr-iron-east-05.cleardb.net', database='heroku_8ed35d7a87fe1ad', user='b99b4e9fb9ac2b', password='8cf9b237')   
