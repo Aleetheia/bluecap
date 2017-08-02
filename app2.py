@@ -29,12 +29,12 @@ def showRaspberry():
         cursor.close() 
         db.close()
 
-#@app.route('/showAddRaspberry')
-#def showAddRaspberry():
-    #return render_template('addRaspberry.html')
+@app.route('/showAddRaspberry')
+def showAddRaspberry():
+    return render_template('addRaspberry.html')
 
 
-@app.route('/showAddRaspberry',methods=['POST'])
+@app.route('/addRaspberry',methods=['POST'])
 def addRaspberry():
     try:
         _id = request.form['inputId']
@@ -53,8 +53,7 @@ def addRaspberry():
             data = cursor.fetchall()
             if len(data) is 0:
                 db.commit()
-                return render_template('addRaspberry.html')
-                #return json.dumps({'message':'Raspberry ajouté !'})    
+                return json.dumps({'message':'Raspberry ajouté !'})    
             else:
                 return json.dumps({'error':str(data[0])})
             cursor.close()
