@@ -62,19 +62,19 @@ def addRaspberry():
         _desks = request.form['inputDesks']
 
         if _id and _country and _city and _building and _floor and _bench and _desks:
-            
-            conn = mysql.connect()    
-            cursor = conn.cursor()
+                      
+            db = sql.connect(host='us-cdbr-iron-east-05.cleardb.net', database='heroku_8ed35d7a87fe1ad', user='b99b4e9fb9ac2b', password='8cf9b237')   
+            cursor = db.cursor()         
             cursor.callproc('insert_raspberry',(_id,_country,_city,_building,_floor,_bench,_desks))
             data = cursor.fetchall()
             if len(data) is 0:
-                conn.commit()
+                db.commit()
                 return json.dumps({'message':'Raspberry ajouté !'})    
             else:
                 return json.dumps({'error':str(data[0])})
+            cursor.close()
+            db.close()
 
-            cursor.close() 
-            conn.close()
         else:
                 return json.dumps({'html':'<span>Des champs requis sont manquant</span>'})
 
