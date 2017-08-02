@@ -29,12 +29,12 @@ def showRaspberry():
         cursor.close() 
         db.close()
 
-@app.route('/showAddRaspberry')
-def showAddRaspberry():
-    return render_template('addRaspberry.html')
+#@app.route('/showAddRaspberry')
+#def showAddRaspberry():
+    #return render_template('addRaspberry.html')
 
 
-@app.route('/addRaspberry',methods=['POST'])
+@app.route('/showaddRaspberry',methods=['POST'])
 def addRaspberry():
     try:
         _id = request.form['inputId']
