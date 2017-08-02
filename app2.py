@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, json, flash, session, redirect
+from flask import Flask, render_template, request, json, flash, session, redirect? 
 #from flask.ext.mysql import MySQL
 import MySQLdb as sql
 
@@ -56,7 +56,7 @@ def addRaspberry():
             db.commit()
             db.close()
             #return json.dumps({'message':'Raspberry ajouté !'}) 
-            return redirect("http://www.google.com", code=302)
+            return redirect(url_for('index'))
         else:
             return json.dumps({'html':'<span>Des champs requis sont manquant</span>'})
 
