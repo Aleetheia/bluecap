@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, json, flash, session, redirect, url_for
+from flask import Flask, render_template, request, json, flash, session
 #from flask.ext.mysql import MySQL
 import MySQLdb as sql
 
@@ -12,9 +12,9 @@ def main():
     return render_template('index.html')
 
 
-@app.route("/showsshowRaspberry")
-def showShowRaspberry():
-    return render_template('showRaspberry.html')
+#@app.route("/showShowRaspberry")
+#def showShowRaspberry():
+    #return render_template('showRaspberry.html')
 
 @app.route("/showShowRaspberry",methods=['GET'])
 def showRaspberry():
@@ -35,9 +35,6 @@ def showRaspberry():
 def showAddRaspberry():
     return render_template('addRaspberry.html')
 
-@app.route('/testflash')
-def testflash():
-    return render_template('index.html')
 
 @app.route('/addRaspberry',methods=['POST'])
 def addRaspberry():
@@ -58,13 +55,10 @@ def addRaspberry():
             data = cursor.fetchall()
             db.commit()
             db.close()
-            flash('Raspberry ajouté !')
-            #return redirect("/showShowRaspberry", code=302)
-            return render_template('showRaspberry.html')
-        #return json.dumps({'message':'Raspberry ajouté !'}) 
-
-        #else:
-            #return json.dumps({'html':'<span>Des champs requis sont manquant</span>'})
+            #return json.dumps({'message':'Raspberry ajouté !'}) 
+            return redirect("http://www.google.com", code=302)
+        else:
+            return json.dumps({'html':'<span>Des champs requis sont manquant</span>'})
 
     except Exception as e:
         return json.dumps({'error':str(e)})
