@@ -56,7 +56,7 @@ def addRaspberry():
             db.commit()
             db.close()
             #return json.dumps({'message':'Raspberry ajouté !'}) 
-            return redirect(url_for('main'))
+            #return redirect(url_for('main'))
         else:
             return json.dumps({'html':'<span>Des champs requis sont manquant</span>'})
 
