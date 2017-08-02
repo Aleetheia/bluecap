@@ -53,6 +53,7 @@ def addRaspberry():
             data = cursor.fetchall()
             db.commit()
             db.close()
+            flash('Raspberry ajouté !')
             return json.dumps({'message':'Raspberry ajouté !'}) 
 
         else:
