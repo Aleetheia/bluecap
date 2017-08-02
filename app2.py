@@ -37,7 +37,7 @@ def showAddRaspberry():
 
 @app.route('/testflash')
 def testflash():
-    return 'testflash'
+    return render_template('index.html')
 
 @app.route('/addRaspberry',methods=['POST'])
 def addRaspberry():
