@@ -1,9 +1,11 @@
-from flask import Flask, render_template, request, json, flash
+from flask import Flask, render_template, request, json, flash, session
 #from flask.ext.mysql import MySQL
 import MySQLdb as sql
 
 #mysql = MySQL()
 app = Flask(__name__)
+app.secret_key = 'TEST'
+app.config['SESSION_TYPE'] = 'filesystem'
 
 @app.route("/")
 def main():
