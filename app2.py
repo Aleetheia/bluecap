@@ -57,7 +57,7 @@ def addRaspberry():
             db.close()
             flash('Raspberry ajouté !')
             #return redirect("/showShowRaspberry", code=302)
-            return redirect(url_for('showShowRaspberry'))
+            return redirect(url_for('showRaspberry'))
         #return json.dumps({'message':'Raspberry ajouté !'}) 
 
         #else:
