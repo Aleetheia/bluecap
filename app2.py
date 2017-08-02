@@ -5,42 +5,19 @@ import MySQLdb as sql
 mysql = MySQL()
 app = Flask(__name__)
 
-app.config['MYSQL_DATABASE_USER'] = 'b99b4e9fb9ac2b'
-app.config['MYSQL_DATABASE_PASSWORD'] = '8cf9b237'
-app.config['MYSQL_DATABASE_DB'] = 'heroku_8ed35d7a87fe1ad'
-app.config['MYSQL_DATABASE_HOST'] = 'us-cdbr-iron-east-05.cleardb.net'
-mysql.init_app(app)
-
 @app.route("/")
 def main():
-    def load_data_from_mysql_to_rasp():
-        from uuid import getnode as get_mac
-        h = hex(get_mac())[2:].zfill(12)
-        addr_mac = (":".join(i + j for i, j in zip(h[::2], h[1::2])))
-        db = sql.connect(host='us-cdbr-iron-east-05.cleardb.net', database='heroku_8ed35d7a87fe1ad', user='b99b4e9fb9ac2b', password='8cf9b237')
-        cursor = db.cursor()
-        cursor.execute("UPDATE raspberries SET mac_address=%s WHERE registered=FALSE",[addr_mac])
-        cursor.execute('SELECT num_desks FROM raspberries WHERE mac_address=%s',[addr_mac])
-        results = cursor.fetchall()
-        num_desks=[]
-        for row in results:
-            num_desks.append(row[0])
-        cursor.execute("UPDATE raspberries SET registered=TRUE WHERE mac_address=%s",[addr_mac])
-        db.commit()
-        db.close()
-        return num_desks[0]
-
-    results = load_data_from_mysql_to_rasp()
-    print(results)
     return render_template('index.html')
+
 
 @app.route("/showShowRaspberry")
 def showShowRaspberry():
     try:
-        conn = mysql.connect()    
-        cursor = conn.cursor()         
+        db = sql.connect(host='us-cdbr-iron-east-05.cleardb.net', database='heroku_8ed35d7a87fe1ad', user='b99b4e9fb9ac2b', password='8cf9b237')   
+        cursor = db.cursor()         
         cursor.callproc('show_raspberry')
         data = cursor.fetchall()
+        db.close()
         
         return render_template('showRaspberry.html', data = data)
         
