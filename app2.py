@@ -52,7 +52,7 @@ def addRaspberry():
             cursor.callproc('insert_raspberry',(_id,_country,_city,_building,_floor,_bench,_desks))
             data = cursor.fetchall()
             return json.dumps({'message':'en cours...'})
-        if len(data) is 0:
+            if len(data) is 0:
                 db.commit()
                 return json.dumps({'message':'Raspberry ajouté !'})    
             else:
