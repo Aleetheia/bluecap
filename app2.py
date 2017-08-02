@@ -34,7 +34,7 @@ def showRaspberry():
     #return render_template('addRaspberry.html')
 
 
-@app.route('/showaddRaspberry',methods=['POST'])
+@app.route('/showAddRaspberry',methods=['POST'])
 def addRaspberry():
     try:
         _id = request.form['inputId']
