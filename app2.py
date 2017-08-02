@@ -35,6 +35,9 @@ def showRaspberry():
 def showAddRaspberry():
     return render_template('addRaspberry.html')
 
+@app.route('/testflash')
+def testflash():
+    return 'testflash'
 
 @app.route('/addRaspberry',methods=['POST'])
 def addRaspberry():
@@ -57,7 +60,7 @@ def addRaspberry():
             db.close()
             flash('Raspberry ajouté !')
             #return redirect("/showShowRaspberry", code=302)
-            return redirect(url_for('showShowRaspberry'))
+            return redirect(url_for('testflash'))
         #return json.dumps({'message':'Raspberry ajouté !'}) 
 
         #else:
