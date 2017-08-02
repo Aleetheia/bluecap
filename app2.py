@@ -51,17 +51,12 @@ def addRaspberry():
             cursor = db.cursor()         
             cursor.callproc('insert_raspberry',(_id,_country,_city,_building,_floor,_bench,_desks))
             data = cursor.fetchall()
-            return json.dumps({'message':'en cours...'})
-            if len(data) is 0:
-                db.commit()
-                return json.dumps({'message':'Raspberry ajouté !'})    
-            else:
-                return json.dumps({'error':str(data[0])})
-            cursor.close()
+            db.commit()
             db.close()
+            return json.dumps({'message':'Raspberry ajouté !'}) 
 
         else:
-                return json.dumps({'html':'<span>Des champs requis sont manquant</span>'})
+            return json.dumps({'html':'<span>Des champs requis sont manquant</span>'})
 
     except Exception as e:
         return json.dumps({'error':str(e)})
