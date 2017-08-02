@@ -56,7 +56,8 @@ def addRaspberry():
             db.commit()
             db.close()
             flash('Raspberry ajouté !')
-            return redirect("/showShowRaspberry", code=302)
+            #return redirect("/showShowRaspberry", code=302)
+            return redirect(url_for('showShowRaspberry'))
         #return json.dumps({'message':'Raspberry ajouté !'}) 
 
         #else:
