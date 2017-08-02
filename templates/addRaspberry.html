@@ -51,18 +51,15 @@
         <input type="desks" name="inputDesks" id="inputDesks" class='text-input' placeholder="Nombre de postes de la pièce ou du bench" required autofocus>    
             
         <button id="btnAddRasp" class="button" type="button">Ajouterrrrrrrrrr</button>      
-        </form>
+        </form>          
           
-        {% with messages = get_flashed_messages() %}
-  {% if messages %}
-    <ul class=flashes>
-    {% for message in messages %}
-      <li>{{ message }}</li>
-    {% endfor %}
-    </ul>
-  {% endif %}
+          {% with messages = get_flashed_messages() %}
+   {% if messages %}
+      {% for message in messages %}
+         {{ message }}
+      {% endfor %}
+   {% endif %}
 {% endwith %}
-{% block body %}{% endblock %}  
           
           
 	   </div>    

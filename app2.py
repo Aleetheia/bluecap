@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, json
+from flask import Flask, render_template, request, json, flash
 #from flask.ext.mysql import MySQL
 import MySQLdb as sql
 
