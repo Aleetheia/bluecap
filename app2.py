@@ -1,7 +1,6 @@
 from flask import Flask, render_template, request, json, flash, session, redirect, url_for 
 import MySQLdb as sql
 import pandas as pd
-from pandas import to_html
 import math as math
     
 app = Flask(__name__)
@@ -46,11 +45,15 @@ def main():
 
     #display_rates(rates(16, data, 'H'))
     #display_rates(rates(16, data, 'D'))
-    taux, df = rates(16, data, 'C')
-    dft=df.to_html()
+    #taux, df = rates(16, data, 'C')
+    #dft=df.to_html()
     #res =('{} % de taux d\'occupation'.format(taux))
     
-    return render_template("index.html", res=dft)       
+    
+    taux, df = rates(16, data, 'D')
+    dfa =((df.index).to_datetime()).strftime('%Y-%m-%d')
+    d = dict(zip(dfa, taux))
+    return render_template("index.html", res=d)       
     
     
 @app.route("/showShowRaspberry",methods=['GET'])
