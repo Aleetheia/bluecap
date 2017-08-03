@@ -45,7 +45,7 @@ def main():
     taux, df = rates(16, data, 'C')
     res =('{} % de taux d\'occupation'.format(taux))
     
-    return render_template("index.html", res=df)       
+    return render_template("index.html", res=df.to_html())       
     
     
 @app.route("/showShowRaspberry",methods=['GET'])
