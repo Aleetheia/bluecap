@@ -37,18 +37,11 @@ db_connection = sql.connect(host='us-cdbr-iron-east-05.cleardb.net', database='h
     
     #return render_template("results.html", res=taux)    
     
-    try:  
-        cursor = db.cursor()     
-        cursor.callproc('show_raspberry')
-        data = cursor.fetchall()
-        
-    except Exception as e:
-        return json.dumps({'error':str(e)})
     finally:
         cursor.close() 
         db.close()
         
-    return render_template('index.html', data=data, res=taux_hebdo)
+    return render_template('index.html' res=taux_hebdo)
 
 @app.route("/showShowRaspberry",methods=['GET'])
 def showRaspberry():
