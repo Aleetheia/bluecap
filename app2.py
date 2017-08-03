@@ -26,13 +26,16 @@ def main():
     def rates(nb_of_desks, data, frequency):
         df = data.set_index('date').resample(frequency)['counter'].max()
         df = df.fillna(0)
+        dfs= df.to_frame()
         taux=[]
+        
         if(frequency == 'C'):  
              taux.append(math.ceil(100*((df.sum()/df.astype(bool).sum(axis=0))/nb_of_desks)))
         else: 
             for x in range(len(df)):
                 taux.append(math.ceil(100*((df[x].sum()/nb_of_desks))))
-        return(taux, df.to_frame()) 
+        
+        return(taux, dfs) 
 
     def display_rates(taux):    
         for x in range(len(taux)):
@@ -44,9 +47,10 @@ def main():
     #display_rates(rates(16, data, 'H'))
     #display_rates(rates(16, data, 'D'))
     taux, df = rates(16, data, 'C')
-    res =('{} % de taux d\'occupation'.format(taux))
+    dft=df.to_html()
+    #res =('{} % de taux d\'occupation'.format(taux))
     
-    return render_template("index.html", res=df.to_html())       
+    return render_template("index.html", res=dft)       
     
     
 @app.route("/showShowRaspberry",methods=['GET'])
