@@ -7,10 +7,46 @@ app = Flask(__name__)
 app.secret_key = 'TEST'
 app.config['SESSION_TYPE'] = 'filesystem'
 
+#@app.route("/")
+#def main():
+    #return render_template('index.html')
+
 @app.route("/")
 def main():
-    return render_template('index.html')
+    import pandas as pd
+    import math as math
 
+    def load_data_mysql():
+        db_connection = sql.connect(host='us-cdbr-iron-east-05.cleardb.net', database='heroku_8ed35d7a87fe1ad', user='b99b4e9fb9ac2b', password='8cf9b237')
+        df = pd.read_sql('SELECT rasp_id,date,counter FROM counter_values', con=db_connection)
+        print(df)
+        df['date'] = pd.to_datetime(df['date'])
+        return df
+
+    def rates(nb_of_desks, data, frequency):
+        df = data.set_index('date').resample(frequency)['counter'].max()
+        df = df.fillna(0)
+        taux=[]
+        if(frequency == 'C'):  
+             taux.append(math.ceil(100*((df.sum()/df.astype(bool).sum(axis=0))/nb_of_desks)))
+        else: 
+            for x in range(len(df)):
+                taux.append(math.ceil(100*((df[x].sum()/nb_of_desks))))
+        return(taux) 
+
+    def display_rates(taux):    
+        for x in range(len(taux)):
+            print('{} % de taux d\'occupation'.format(taux[x]))
+        print('------------------------')   
+
+    data = load_data_mysql()
+
+    #display_rates(rates(16, data, 'H'))
+    #display_rates(rates(16, data, 'D'))
+    res =('{} % de taux d\'occupation'.format(rates(16, data, 'C')))
+    return render_template("index.html", res=res)       
+    
+    
 @app.route("/showShowRaspberry",methods=['GET'])
 def showRaspberry():
     try:
@@ -58,40 +94,7 @@ def addRaspberry():
         
         
         
-@app.route('/results')
-def analysis():
-    import pandas as pd
-    import math as math
-
-    def load_data_mysql():
-        db_connection = sql.connect(host='us-cdbr-iron-east-05.cleardb.net', database='heroku_8ed35d7a87fe1ad', user='b99b4e9fb9ac2b', password='8cf9b237')
-        df = pd.read_sql('SELECT rasp_id,date,counter FROM counter_values', con=db_connection)
-        print(df)
-        df['date'] = pd.to_datetime(df['date'])
-        return df
-
-    def rates(nb_of_desks, data, frequency):
-        df = data.set_index('date').resample(frequency)['counter'].max()
-        df = df.fillna(0)
-        taux=[]
-        if(frequency == 'C'):  
-             taux.append(math.ceil(100*((df.sum()/df.astype(bool).sum(axis=0))/nb_of_desks)))
-        else: 
-            for x in range(len(df)):
-                taux.append(math.ceil(100*((df[x].sum()/nb_of_desks))))
-        return(taux) 
-
-    def display_rates(taux):    
-        for x in range(len(taux)):
-            print('{} % de taux d\'occupation'.format(taux[x]))
-        print('------------------------')   
-
-    data = load_data_mysql()
-
-    #display_rates(rates(16, data, 'H'))
-    #display_rates(rates(16, data, 'D'))
-    res =('{} % de taux d\'occupation'.format(rates(16, data, 'C')))
-    return render_template("results.html", res=res)       
+    
 
 if __name__ == "__main__":
     app.run()

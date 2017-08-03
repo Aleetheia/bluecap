@@ -1,29 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>BlueCap - Enregistrement d'un Raspberry</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/signup.css') }}">
-      
-    <script src="../static/js/signUp.js"></script>  
-    
-  </head>
- 
-  <body>
-    <div class="container" id="content">
-      <div class="header">
-        <nav>
-          <ul class="nav nav-pills pull-right">
-            <li role="presentation" ><a href="/">Accueil</a></li>
-            <li role="presentation"><a href="showShowRaspberry">Raspberry</a></li>
-            <li role="presentation"><a href="showAddRaspberry">Ajouter un Raspberry</a></li>
-          </ul>
-        </nav>
-        <h1 class="text-muted">BlueCap</h1>
-      </div>
- 
+{% extends "layout.html" %}
+
+{% block title %}
+<h3 class="text-muted">BlueCap</h3>
+{% endblock %}
+
+{% block corps %}
       <div class="jumbotron">
         <h2>Enregistrement d'un Raspberry</h2>
       
@@ -54,8 +35,4 @@
         </form>          
           
 	   </div>    
-          
-      </div> 
-    </body>
-    
-</html>
+{% endblock %}
