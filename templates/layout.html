@@ -1,5 +1,6 @@
 <!doctype html>
 <html>
+    
   <head>
     {% block head %}
         <title>BlueCap</title>
@@ -11,28 +12,29 @@
   </head>
     
     <body>
-      
-    {% block navigation %}
+        
       <div class="container">
-        <nav>
+          
+        {% block navigation %}
+          <nav>
           <ul class="nav nav-pills pull-right">
             <li role="presentation" ><a href="/">Accueil</a></li>
             <li role="presentation"><a href="showShowRaspberry">Raspberry</a></li>
             <li role="presentation"><a href="showAddRaspberry">Ajouter un Raspberry</a></li>
           </ul>
         </nav> 
-    </div>
-    {% endblock %}
-    
-    {% block title %}{% endblock %}
-    {% block corps %}{% endblock %}   
-      
-    {% block footer %}
-      <div id="footer">  
-      &copy; Copyright 2017 by Dounia Saez. 
-      </div>
-    {% endblock %} 
-      
+        {% endblock %}
+   
+        {% block title %}{% endblock %}
+        {% block corps %}{% endblock %}   
+          
+     </div> 
+        
+     <div id="footer">
+        {% block footer %}      
+            &copy; Copyright 2017 by Dounia Saez.  
+        {% endblock %} 
+     </div>
 
     </body>
 
