@@ -19,7 +19,6 @@ def main():
     def load_data_mysql():
         db_connection = sql.connect(host='us-cdbr-iron-east-05.cleardb.net', database='heroku_8ed35d7a87fe1ad', user='b99b4e9fb9ac2b', password='8cf9b237')
         df = pd.read_sql('SELECT rasp_id,date,counter FROM counter_values', con=db_connection)
-        print(df)
         df['date'] = pd.to_datetime(df['date'])
         return df
 
@@ -44,7 +43,11 @@ def main():
     #display_rates(rates(16, data, 'H'))
     #display_rates(rates(16, data, 'D'))
     res =('{} % de taux d\'occupation'.format(rates(16, data, 'C')))
-    return render_template("index.html", res=res)       
+    
+    for x in range(len(taux)):
+            res.append('{} % de taux d\'occupation'.format(taux[x]))
+
+    return render_template("index.html", res=data)       
     
     
 @app.route("/showShowRaspberry",methods=['GET'])
