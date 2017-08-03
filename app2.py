@@ -1,8 +1,6 @@
 from flask import Flask, render_template, request, json, flash, session, redirect, url_for 
-#from flask.ext.mysql import MySQL
 import MySQLdb as sql
 
-#mysql = MySQL()
 app = Flask(__name__)
 app.secret_key = 'TEST'
 app.config['SESSION_TYPE'] = 'filesystem'
@@ -10,11 +8,6 @@ app.config['SESSION_TYPE'] = 'filesystem'
 @app.route("/")
 def main():
     return render_template('index.html')
-
-
-#@app.route("/showShowRaspberry")
-#def showShowRaspberry():
-    #return render_template('showRaspberry.html')
 
 @app.route("/showShowRaspberry",methods=['GET'])
 def showRaspberry():
@@ -55,8 +48,6 @@ def addRaspberry():
             data = cursor.fetchall()
             db.commit()
             db.close()
-            #return json.dumps({'message':'Raspberry ajouté !'}) 
-            #return redirect(url_for('main'))
         else:
             return json.dumps({'html':'<span>Des champs requis sont manquant</span>'})
 
