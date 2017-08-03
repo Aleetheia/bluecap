@@ -31,7 +31,7 @@ def main():
         else: 
             for x in range(len(df)):
                 taux.append(math.ceil(100*((df[x].sum()/nb_of_desks))))
-        return(taux) 
+        return(taux, df) 
 
     def display_rates(taux):    
         for x in range(len(taux)):
@@ -42,12 +42,10 @@ def main():
 
     #display_rates(rates(16, data, 'H'))
     #display_rates(rates(16, data, 'D'))
-    taux =('{} % de taux d\'occupation'.format(rates(16, data, 'C')))
+    taux, df = rates(16, data, 'C')
+    res =('{} % de taux d\'occupation'.format(taux))
     
-    for x in range(len(taux)):
-            res.append('{} % de taux d\'occupation'.format(taux[x]))
-
-    return render_template("index.html", res=data)       
+    return render_template("index.html", res=df)       
     
     
 @app.route("/showShowRaspberry",methods=['GET'])
