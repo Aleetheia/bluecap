@@ -1,14 +1,43 @@
 from flask import Flask, render_template, request, json, flash, session, redirect, url_for 
 import MySQLdb as sql
-
+import pandas as pd
+import math as math
+    
 app = Flask(__name__)
 app.secret_key = 'TEST'
 app.config['SESSION_TYPE'] = 'filesystem'
 
 @app.route("/")
 def main():
-    try:
-        db = sql.connect(host='us-cdbr-iron-east-05.cleardb.net', database='heroku_8ed35d7a87fe1ad', user='b99b4e9fb9ac2b', password='8cf9b237')   
+    
+db_connection = sql.connect(host='us-cdbr-iron-east-05.cleardb.net', database='heroku_8ed35d7a87fe1ad', user='b99b4e9fb9ac2b', password='8cf9b237')
+
+    def load_data_mysql():
+        df = pd.read_sql('SELECT rasp_id,date,counter FROM counter_values', con=db_connection)
+        print(df)
+        df['date'] = pd.to_datetime(df['date'])
+        return df
+
+    def rates(nb_of_desks, data, frequency):
+        df = data.set_index('date').resample(frequency)['counter'].max()
+        df = df.fillna(0)
+        taux=[]
+        if(frequency == 'C'):  
+             taux.append(math.ceil(100*((df.sum()/df.astype(bool).sum(axis=0))/nb_of_desks)))
+        else: 
+            for x in range(len(df)):
+                taux.append(math.ceil(100*((df[x].sum()/nb_of_desks))))
+        return(taux) 
+
+    data = load_data_mysql()
+    
+    taux_heure = rates(16, data, 'H')
+    taux_jour  = rates(16, data, 'D')
+    taux_hebdo = rates(16, data, 'C')
+    
+    #return render_template("results.html", res=taux)    
+    
+    try:  
         cursor = db.cursor()     
         cursor.callproc('show_raspberry')
         data = cursor.fetchall()
@@ -19,7 +48,7 @@ def main():
         cursor.close() 
         db.close()
         
-    return render_template('index.html', data=data)
+    return render_template('index.html', data=data, res=taux)
 
 @app.route("/showShowRaspberry",methods=['GET'])
 def showRaspberry():
