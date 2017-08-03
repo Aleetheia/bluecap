@@ -48,7 +48,7 @@ db_connection = sql.connect(host='us-cdbr-iron-east-05.cleardb.net', database='h
         cursor.close() 
         db.close()
         
-    return render_template('index.html', data=data, res=taux)
+    return render_template('index.html', data=data, res=taux_hebdo)
 
 @app.route("/showShowRaspberry",methods=['GET'])
 def showRaspberry():
