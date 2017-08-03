@@ -42,7 +42,7 @@ def main():
 
     #display_rates(rates(16, data, 'H'))
     #display_rates(rates(16, data, 'D'))
-    res =('{} % de taux d\'occupation'.format(rates(16, data, 'C')))
+    taux =('{} % de taux d\'occupation'.format(rates(16, data, 'C')))
     
     for x in range(len(taux)):
             res.append('{} % de taux d\'occupation'.format(taux[x]))
