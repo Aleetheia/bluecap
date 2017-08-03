@@ -9,37 +9,7 @@ app.config['SESSION_TYPE'] = 'filesystem'
 
 @app.route("/")
 def main():
-    
-    
-
-    def load_data_mysql():
-        db_connection = sql.connect(host='us-cdbr-iron-east-05.cleardb.net', database='heroku_8ed35d7a87fe1ad', user='b99b4e9fb9ac2b', password='8cf9b237')
-        df = pd.read_sql('SELECT rasp_id,date,counter FROM counter_values', con=db_connection)
-        print(df)
-        df['date'] = pd.to_datetime(df['date'])
-        cursor.close() 
-        db.close()
-        return df
-
-    def rates(nb_of_desks, data, frequency):
-        df = data.set_index('date').resample(frequency)['counter'].max()
-        df = df.fillna(0)
-        taux=[]
-        if(frequency == 'C'):  
-             taux.append(math.ceil(100*((df.sum()/df.astype(bool).sum(axis=0))/nb_of_desks)))
-        else: 
-            for x in range(len(df)):
-                taux.append(math.ceil(100*((df[x].sum()/nb_of_desks))))
-        return(taux) 
-
-    data = load_data_mysql()
-    
-    taux_heure = rates(16, data, 'H')
-    taux_jour  = rates(16, data, 'D')
-    res = rates(16, data, 'C')
-    
-    #return render_template("results.html", res=taux)      
-    return render_template('index.html' res=res)
+    return render_template('index.html')
 
 @app.route("/showShowRaspberry",methods=['GET'])
 def showRaspberry():
