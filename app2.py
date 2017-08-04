@@ -95,16 +95,14 @@ def addRaspberry():
             data = cursor.fetchall()
             db.commit()
             db.close()
+            return json.dumps({'Raspberry ajouté !'})
+        
         else:
             return json.dumps({'html':'<span>Des champs requis sont manquant</span>'})
 
     except Exception as e:
         return json.dumps({'error':str(e)})
-        
-        
-        
     
-
 if __name__ == "__main__":
     app.run()
     
