@@ -6,15 +6,11 @@ $(function(){
 			data: $('form').serialize(),
 			type: 'POST',
 			success: function(response){
-				//console.log(response);
-                alert("Raspberry ajouté !");
+				console.log(response);
 			},
 			error: function(error){
 				console.log(error);
 			}
 		});
-        
-        //alert("test");
-        
 	});
 });
