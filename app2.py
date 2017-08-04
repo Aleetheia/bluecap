@@ -85,8 +85,8 @@ def addRaspberry():
         _building = request.form['inputBuilding']
         _floor = request.form['inputFloor']
         _bench = request.form['inputBench']
-        _desks = request.form['inputDesks']
-
+        _desks = request.form['inputDesks']   
+    
         if _id and _country and _city and _building and _floor and _bench and _desks:
                       
             db = sql.connect(host='us-cdbr-iron-east-05.cleardb.net', database='heroku_8ed35d7a87fe1ad', user='b99b4e9fb9ac2b', password='8cf9b237')   
