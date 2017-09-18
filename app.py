@@ -107,7 +107,7 @@ def plotResults():
     fig.tight_layout()
     plot = plt.show()
     
-    return render_template('resultsplot.html',plot=plot)
+    return render_template('plotResults.html')
 
 @app.route('/addRaspberry',methods=['POST'])
 def addRaspberry():
