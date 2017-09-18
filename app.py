@@ -79,7 +79,8 @@ def showAddRaspberry():
 
 @app.route('/plotResults')
 def plotResults():
-    x = pd.DataFrame(np.random.randn(20, 5))
+    df = pd.DataFrame({'col1':np.random.randn(100),'col2':np.random.randn(100)})
+    data = df.hist(layout=(1,2)) 
     return render_template("plotResults.html", data=x.to_html())
 
 @app.route('/addRaspberry',methods=['POST'])
