@@ -9,8 +9,7 @@
     
     <h2>Taux d'occupation actuel des benchs</h2>
 
-<script>
-for (var j = 1; j <= 50; j += 10) {    
+<script>  
 var pie = new d3pie("pieChart", {
 	"size": {
 		"canvasHeight": 200,
@@ -21,12 +20,12 @@ var pie = new d3pie("pieChart", {
 		"content": [
 			{
 				"label": "",
-				"value": j,
+				"value": 85,
 				"color": "#2383c1"
 			},
 			{
 				"label": "",
-				"value": 100-j,
+				"value": 15,
 				"color": "#64a61f"
 			}
 		]
@@ -37,7 +36,7 @@ var pie = new d3pie("pieChart", {
 		},
 	}
 });
-}
+
 </script>
     
 </div>
