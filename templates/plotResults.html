@@ -9,34 +9,86 @@
     
     <h2>Taux d'occupation actuel des benchs</h2>
 
-<script>  
+<script src="//cdnjs.cloudflare.com/ajax/libs/d3/4.7.2/d3.min.js"></script>
+<script src="../static/js/d3pie.min.js"></script>
+<script>
 var pie = new d3pie("pieChart", {
+	"header": {
+		"title": {
+			"fontSize": 24,
+			"font": "open sans"
+		},
+		"subtitle": {
+			"color": "#999999",
+			"fontSize": 12,
+			"font": "open sans"
+		},
+		"titleSubtitlePadding": 9
+	},
+	"footer": {
+		"color": "#999999",
+		"fontSize": 10,
+		"font": "open sans",
+		"location": "bottom-left"
+	},
 	"size": {
-		"canvasHeight": 200,
-		"canvasWidth": 200,
+		"canvasHeight": 300,
+		"canvasWidth": 300,
 		"pieOuterRadius": "100%"
 	},
 	"data": {
+		"sortOrder": "value-desc",
 		"content": [
 			{
 				"label": "",
 				"value": 85,
-				"color": "#2383c1"
+				"color": "#cb2121"
 			},
 			{
 				"label": "",
 				"value": 15,
-				"color": "#64a61f"
+				"color": "#618d1b"
 			}
 		]
 	},
+	"labels": {
+		"outer": {
+			"pieDistance": 32
+		},
+		"inner": {
+			"hideWhenLessThanPercentage": 3
+		},
+		"mainLabel": {
+			"font": "georgia",
+			"fontSize": 13
+		},
+		"percentage": {
+			"color": "#ffffff",
+			"font": "lucida sans",
+			"fontSize": 25,
+			"decimalPlaces": 0
+		},
+		"value": {
+			"color": "#adadad",
+			"fontSize": 11
+		},
+		"truncation": {
+			"enabled": true
+		}
+	},
 	"effects": {
 		"load": {
-			"speed": 500
+			"speed": 800
 		},
+		"pullOutSegmentOnClick": {
+			"effect": "linear",
+			"speed": 400,
+			"size": 8
+		},
+		"highlightSegmentOnMouseover": false,
+		"highlightLuminosity": -0.5
 	}
 });
-
 </script>
     
 </div>
