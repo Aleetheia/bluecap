@@ -76,9 +76,10 @@ def showAddRaspberry():
     return render_template('addRaspberry.html')
 
 
-@app.route('/plotResults')
+@app.route('/plot')
 def plotResults():
     return render_template('addRaspberry.html')
+
 
 @app.route('/plotResults2')
 def plotResults():
