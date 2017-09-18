@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, json, flash, session, redirec
 import MySQLdb as sql
 import pandas as pd
 import math as math
+import numpy as np
     
 app = Flask(__name__)
 app.secret_key = 'TEST'
