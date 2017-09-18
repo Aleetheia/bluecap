@@ -78,6 +78,10 @@ def showAddRaspberry():
 
 @app.route('/plotResults')
 def plotResults():
+    return render_template('plotResults.html')
+
+@app.route('/plotResults2')
+def plotResults():
     import numpy as np
     import matplotlib.mlab as mlab
     import matplotlib.pyplot as plt
