@@ -5,68 +5,205 @@
 {% endblock %}
 
 {% block corps %}
-<div> 
+<!DOCTYPE html>
+
+<script src="//d3js.org/d3.v4.min.js"></script>
+<script src="js/d3pie.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="query.js"></script>
+  
+<!-- PIECHART -->    
+<div id="assetid"></div>
     
-    <h2>Taux d'occupation actuel des benchs</h2>
-
-<style>
-
-.arc text {
-  font: 10px sans-serif;
-  text-anchor: middle;
-}
-
-.arc path {
-  stroke: #fff;
-}
-
-</style>
-<svg width="960" height="500"></svg>
-<script src="https://d3js.org/d3.v4.min.js"></script>
+<div id="pieChart"></div>   
+ 
 <script>
-
-var svg = d3.select("svg"),
-    width = +svg.attr("width"),
-    height = +svg.attr("height"),
-    radius = Math.min(width, height) / 2,
-    g = svg.append("g").attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
-
-var color = d3.scaleOrdinal(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
-
-var pie = d3.pie()
-    .sort(null)
-    .value(function(d) { return d.population; });
-
-var path = d3.arc()
-    .outerRadius(radius - 10)
-    .innerRadius(0);
-
-var label = d3.arc()
-    .outerRadius(radius - 40)
-    .innerRadius(radius - 40);
-
-d3.csv("data.csv", function(d) {
-  d.population = +d.population;
-  return d;
-}, function(error, data) {
-  if (error) throw error;
-
-  var arc = g.selectAll(".arc")
-    .data(pie(data))
-    .enter().append("g")
-      .attr("class", "arc");
-
-  arc.append("path")
-      .attr("d", path)
-      .attr("fill", function(d) { return color(d.data.age); });
-
-  arc.append("text")
-      .attr("transform", function(d) { return "translate(" + label.centroid(d) + ")"; })
-      .attr("dy", "0.35em")
-      .text(function(d) { return d.data.age; });
+        
+//SELECT asset_id FROM references.units WHERE data_type = ‘ble_counter’ ;    
+var sensor  = ["FR-NTE-BER-5M050", "FR-NTE-BER-LISTZ", "FR-NTE-BER-5M130","FR-NTE-BER-TEST"];
+    
+//SELECT value FROM live_data.info_perhour WHERE assetid='FR-NTE-BER-LISTZ';     
+var percent = [55,10,24,37]    
+    
+var pie1 = new d3pie("pieChart", {
+	"header": {
+		"title": {
+            "text" : sensor[0],
+			"fontSize": 24,
+			"font": "lucida sans"
+		},
+	},
+	"size": {
+		"canvasHeight": 300,
+		"canvasWidth": 300,
+		"pieOuterRadius": "90%",
+        "pieInnerRadius": "50%"
+	},
+	"data": {
+		"sortOrder": "value-desc",
+		"content": [
+			{
+				"value": percent[0],
+				"color": "#4caa4a"
+			},
+			{
+				"value": 100-percent[0],
+				"color": "#dd1c1c"
+			}
+		]
+	},
+	"labels": {
+        "outer": {
+			"format": "none"
+		},
+        "percentage": {
+			"color": "#ffffff",
+			"fontSize": 14,
+            "font": "lucida sans"
+		},
+	},
+	"effects": {
+		"load": {
+			"speed": 800
+		},
+	}
 });
 
+var pie2 = new d3pie("pieChart", {
+	"header": {
+		"title": {
+            "text" : sensor[1],
+			"fontSize": 24,
+			"font": "lucida sans"
+		},
+		"titleSubtitlePadding": 9
+	},
+	"size": {
+		"canvasHeight": 300,
+		"canvasWidth": 300,
+		"pieOuterRadius": "90%",
+        "pieInnerRadius": "50%"
+	},
+	"data": {
+		"sortOrder": "value-desc",
+		"content": [
+			{
+				"value": percent[0],
+				"color": "#4caa4a"
+			},
+			{
+				"value": 100-percent[1],
+				"color": "#dd1c1c"
+			}
+		]
+	},
+	"labels": {
+        "outer": {
+			"format": "none"
+		},
+        "percentage": {
+			"color": "#ffffff",
+			"fontSize": 14,
+            "font": "lucida sans"
+		},
+	},
+	"effects": {
+		"load": {
+			"speed": 800
+		},
+	}
+}); 
+    
+var pie3 = new d3pie("pieChart", {
+	"header": {
+		"title": {
+            "text" : sensor[2],
+			"fontSize": 24,
+			"font": "lucida sans"
+		},
+		"titleSubtitlePadding": 9
+	},
+	"size": {
+		"canvasHeight": 300,
+		"canvasWidth": 300,
+		"pieOuterRadius": "90%",
+        "pieInnerRadius": "50%"
+	},
+	"data": {
+		"sortOrder": "value-desc",
+		"content": [
+			{
+				"value": percent[2],
+				"color": "#4caa4a"
+			},
+			{
+				"value": 100-percent[2],
+				"color": "#dd1c1c"
+			}
+		]
+	},
+	"labels": {
+        "outer": {
+			"format": "none"
+		},
+        "percentage": {
+			"color": "#ffffff",
+			"fontSize": 14,
+            "font": "lucida sans"
+		},
+	},
+	"effects": {
+		"load": {
+			"speed": 800
+		},
+	}
+});
+    
+var pie4 = new d3pie("pieChart", {
+	"header": {
+		"title": {
+            "text" : sensor[3],
+			"fontSize": 24,
+			"font": "lucida sans"
+		},
+		"titleSubtitlePadding": 9
+	},
+	"size": {
+		"canvasHeight": 300,
+		"canvasWidth": 300,
+		"pieOuterRadius": "90%",
+        "pieInnerRadius": "50%"
+	},
+	"data": {
+		"sortOrder": "value-desc",
+		"content": [
+			{
+				"value": percent[3],
+				"color": "#4caa4a"
+			},
+			{
+				"value": 100-percent[3],
+				"color": "#dd1c1c"
+			}
+		]
+	},
+	"labels": {
+        "outer": {
+			"format": "none"
+		},
+        "percentage": {
+			"color": "#ffffff",
+			"fontSize": 14,
+            "font": "lucida sans"
+		},
+	},
+	"effects": {
+		"load": {
+			"speed": 800
+		},
+	}
+});
+    
 </script>
     
-</div>
 {% endblock %}
