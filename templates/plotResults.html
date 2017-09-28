@@ -1,18 +1,19 @@
-{% extends "layout.html" %}
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
 
-{% block title %}
-<h3 class="text-muted">BlueCap</h3>
-{% endblock %}
-
-{% block corps %}    
-
+<body>
 <script src="//d3js.org/d3.v4.min.js"></script>
 <script src="js/d3pie.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="query.js"></script>
   
 <!-- PIECHART -->    
-<div id="pieChart">   
+<div id="assetid"></div>
+    
+<div id="pieChart"></div>   
+ 
+    
 <script>
 
 //acces cassandra via mqtt
@@ -203,6 +204,6 @@ var pie4 = new d3pie("pieChart", {
 });
     
 </script>    
-</div>
-
-{% endblock %}
+    
+</body>
+</html>
