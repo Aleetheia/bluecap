@@ -4,11 +4,18 @@
 <h3 class="text-muted">BlueCap</h3>
 {% endblock %}
 
-{% block corps %}
-<-- PIECHART -->    
-<div id="pieChart"></div>   
- 
+{% block corps %}    
+
+<script src="//d3js.org/d3.v4.min.js"></script>
+<script src="js/d3pie.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="query.js"></script>
+  
+<!-- PIECHART -->    
+<div id="pieChart">   
 <script>
+
+//acces cassandra via mqtt
         
 //SELECT asset_id FROM references.units WHERE data_type = ‘ble_counter’ ;    
 var sensor  = ["FR-NTE-BER-5M050", "FR-NTE-BER-LISTZ", "FR-NTE-BER-5M130","FR-NTE-BER-TEST"];
@@ -195,6 +202,7 @@ var pie4 = new d3pie("pieChart", {
 	}
 });
     
-</script>
-    
+</script>    
+</div>
+
 {% endblock %}
