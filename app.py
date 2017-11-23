@@ -19,6 +19,73 @@ def main():
 
     def load_data_mysql():
         db_connection = sql.connect(host='us-cdbr-iron-east-05.cleardb.net', database='heroku_8ed35d7a87fe1ad', user='b99b4e9fb9ac2b', password='8cf9b237')
+        df = pd.read_sql('SELECT rasp_id,date,rate FROM rate_values', con=db_connection)
+        df['date'] = pd.to_datetime(df['date'])
+        return df
+    return render_template("index.html", res=df)       
+    
+
+    
+@app.route("/showShowRaspberry",methods=['GET'])
+def showRaspberry():
+    try:
+        db = sql.connect(host='us-cdbr-iron-east-05.cleardb.net', database='heroku_8ed35d7a87fe1ad', user='b99b4e9fb9ac2b', password='8cf9b237')   
+        cursor = db.cursor()     
+        cursor.callproc('show_raspberry')
+        data = cursor.fetchall()
+        return render_template('showRaspberry.html', data = data)
+        
+    except Exception as e:
+        return json.dumps({'error':str(e)})
+    finally:
+        cursor.close() 
+        db.close()
+
+@app.route('/showAddRaspberry')
+def showAddRaspberry():
+    return render_template('addRaspberry.html')
+
+
+@app.route('/plotResults')
+def plotResults():
+    return render_template("plotResults.html")
+
+@app.route('/addRaspberry',methods=['POST'])
+def addRaspberry():
+    try:
+        _id = request.form['inputId']
+        _country = request.form['inputCountry']
+        _city = request.form['inputCity']
+        _building = request.form['inputBuilding']
+        _floor = request.form['inputFloor']
+        _bench = request.form['inputBench']
+        _desks = request.form['inputDesks']   
+    
+        if _id and _country and _city and _building and _floor and _bench and _desks:
+                      
+            db = sql.connect(host='us-cdbr-iron-east-05.cleardb.net', database='heroku_8ed35d7a87fe1ad', user='b99b4e9fb9ac2b', password='8cf9b237')   
+            cursor = db.cursor()         
+            cursor.callproc('insert_raspberry',(_id,_country,_city,_building,_floor,_bench,_desks))
+            data = cursor.fetchall()
+            db.commit()
+            db.close()
+            return json.dumps({'Raspberry ajouté !'})
+        
+        else:
+            return json.dumps({'html':'<span>Des champs requis sont manquant</span>'})
+
+    except Exception as e:
+        return json.dumps({'error':str(e)})
+
+    
+
+@app.route("/rateCalculus")
+def rateCalculus():
+    import pandas as pd
+    import math as math
+
+    def load_data_mysql():
+        db_connection = sql.connect(host='us-cdbr-iron-east-05.cleardb.net', database='heroku_8ed35d7a87fe1ad', user='b99b4e9fb9ac2b', password='8cf9b237')
         df = pd.read_sql('SELECT rasp_id,date,counter FROM counter_values', con=db_connection)
         df['date'] = pd.to_datetime(df['date'])
         return df
@@ -56,122 +123,10 @@ def main():
     d = dict(zip(dfa, taux))
     return render_template("index.html", res=d)       
     
-    
-@app.route("/showShowRaspberry",methods=['GET'])
-def showRaspberry():
-    try:
-        db = sql.connect(host='us-cdbr-iron-east-05.cleardb.net', database='heroku_8ed35d7a87fe1ad', user='b99b4e9fb9ac2b', password='8cf9b237')   
-        cursor = db.cursor()     
-        cursor.callproc('show_raspberry')
-        data = cursor.fetchall()
-        return render_template('showRaspberry.html', data = data)
-        
-    except Exception as e:
-        return json.dumps({'error':str(e)})
-    finally:
-        cursor.close() 
-        db.close()
-
-@app.route('/showAddRaspberry')
-def showAddRaspberry():
-    return render_template('addRaspberry.html')
 
 
-@app.route('/plotResults')
-def plotResults():
-    import plotly.plotly as py
-    import plotly.graph_objs as go
 
-    fig = {
-  "data": [
-    {
-      "values": [16, 15, 12, 6, 5, 4, 42],
-      "labels": [
-        "US",
-        "China",
-        "European Union",
-        "Russian Federation",
-        "Brazil",
-        "India",
-        "Rest of World"
-      ],
-      "domain": {"x": [0, .48]},
-      "name": "GHG Emissions",
-      "hoverinfo":"label+percent+name",
-      "hole": .4,
-      "type": "pie"
-    },     
-    {
-      "values": [27, 11, 25, 8, 1, 3, 25],
-      "labels": [
-        "US",
-        "China",
-        "European Union",
-        "Russian Federation",
-        "Brazil",
-        "India",
-        "Rest of World"
-      ],
-      "text":"CO2",
-      "textposition":"inside",
-      "domain": {"x": [.52, 1]},
-      "name": "CO2 Emissions",
-      "hoverinfo":"label+percent+name",
-      "hole": .4,
-      "type": "pie"
-    }],
-  "layout": {
-        "title":"Global Emissions 1990-2011",
-        "annotations": [
-            {
-                "font": {
-                    "size": 20
-                },
-                "showarrow": False,
-                "text": "GHG",
-                "x": 0.20,
-                "y": 0.5
-            },
-            {
-                "font": {
-                    "size": 20
-                },
-                "showarrow": False,
-                "text": "CO2",
-                "x": 0.8,
-                "y": 0.5
-            }
-        ]
-    }}
-    figpy = py.iplot(fig, filename='donut')
-    return render_template("plotResults.html", fig=figpy)
 
-@app.route('/addRaspberry',methods=['POST'])
-def addRaspberry():
-    try:
-        _id = request.form['inputId']
-        _country = request.form['inputCountry']
-        _city = request.form['inputCity']
-        _building = request.form['inputBuilding']
-        _floor = request.form['inputFloor']
-        _bench = request.form['inputBench']
-        _desks = request.form['inputDesks']   
-    
-        if _id and _country and _city and _building and _floor and _bench and _desks:
-                      
-            db = sql.connect(host='us-cdbr-iron-east-05.cleardb.net', database='heroku_8ed35d7a87fe1ad', user='b99b4e9fb9ac2b', password='8cf9b237')   
-            cursor = db.cursor()         
-            cursor.callproc('insert_raspberry',(_id,_country,_city,_building,_floor,_bench,_desks))
-            data = cursor.fetchall()
-            db.commit()
-            db.close()
-            return json.dumps({'Raspberry ajouté !'})
-        
-        else:
-            return json.dumps({'html':'<span>Des champs requis sont manquant</span>'})
-
-    except Exception as e:
-        return json.dumps({'error':str(e)})
     
 if __name__ == "__main__":
     app.run()
