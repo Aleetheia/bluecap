@@ -28,8 +28,7 @@ def main():
     j2 = query_db("SELECT date,rate FROM rate_values")
     j2 = json.dumps(j2)
 
-    return jsonify(d)
-        return render_template("index.html", res = j2)       
+    return render_template("index.html", res = j2)       
     
 
     
