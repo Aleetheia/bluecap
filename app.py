@@ -53,8 +53,7 @@ def plotResults():
         return (r[0] if r else None) if one else r  
  
     j2 = query_db("SELECT date,rate FROM rate_values")
-    j2 = json.dumps(j2)
-
+    j2 = json.loads(j2)
     return render_template("plotResults.html", res = j2)
 
 @app.route('/addRaspberry',methods=['POST'])
