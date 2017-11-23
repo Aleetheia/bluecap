@@ -15,14 +15,13 @@ app.config['SESSION_TYPE'] = 'filesystem'
 @app.route("/")
 def main():
     import pandas as pd
-    import math as math
-
+    
     def load_data_mysql():
         db_connection = sql.connect(host='us-cdbr-iron-east-05.cleardb.net', database='heroku_8ed35d7a87fe1ad', user='b99b4e9fb9ac2b', password='8cf9b237')
         df = pd.read_sql('SELECT rasp_id,date,rate FROM rate_values', con=db_connection)
         df['date'] = pd.to_datetime(df['date'])
-        return df
-    return render_template("index.html", res=df)       
+        
+        return render_template("index.html")       
     
 
     
