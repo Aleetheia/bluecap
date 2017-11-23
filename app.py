@@ -3,6 +3,7 @@ import MySQLdb as sql
 import pandas as pd
 import math as math
 import numpy as np
+from flask import jsonify
     
 app = Flask(__name__)
 app.secret_key = 'TEST'
@@ -14,14 +15,21 @@ app.config['SESSION_TYPE'] = 'filesystem'
 
 @app.route("/")
 def main():
-    import pandas as pd
-    
-    def load_data_mysql():
-        db_connection = sql.connect(host='us-cdbr-iron-east-05.cleardb.net', database='heroku_8ed35d7a87fe1ad', user='b99b4e9fb9ac2b', password='8cf9b237')
-        df = pd.read_sql('SELECT rasp_id,date,rate FROM rate_values', con=db_connection)
-        df['date'] = pd.to_datetime(df['date'])
-        
-        return render_template("index.html", res = df)       
+    def db(database_name='test'):
+        return sql.connect(host='us-cdbr-iron-east-05.cleardb.net', database='heroku_8ed35d7a87fe1ad', user='b99b4e9fb9ac2b', password='8cf9b237')
+    def query_db(query, args=(), one=False):
+        cur = db().cursor()
+        cur.execute(query, args)
+        r = [dict((cur.description[i][0], value) \
+                  for i, value in enumerate(row)) for row in cur.fetchall()]
+        cur.connection.close()
+        return (r[0] if r else None) if one else r  
+ 
+    j2 = query_db("SELECT date,rate FROM rate_values")
+    j2 = json.dumps(j2)
+
+    return jsonify(d)
+        return render_template("index.html", res = j2)       
     
 
     
