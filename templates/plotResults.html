@@ -6,6 +6,19 @@
 
 {% block corps %}
 <div>   
-    <h2>Taux d'occupation actuel des benchs</h2> 
+    <h2>Taux d'occupation actuel des benchs</h2>
+
+  <div class="table-responsive-vertical shadow-z-1">
+  <table id="table" class="table table-hover table-mc-light-blue">
+        {% for name, key, value in res.items() %}
+        <tr>
+        <th> {{ key }} </th>
+        <th> {{ value }} </th>
+        </tr>
+        {% endfor %}
+    </table>
+    
+    
+</div>
 </div>
 {% endblock %}
