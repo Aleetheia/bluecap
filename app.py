@@ -21,7 +21,7 @@ def main():
         df = pd.read_sql('SELECT rasp_id,date,rate FROM rate_values', con=db_connection)
         df['date'] = pd.to_datetime(df['date'])
         
-        return render_template("index.html")       
+        return render_template("index.html", res = df)       
     
 
     
