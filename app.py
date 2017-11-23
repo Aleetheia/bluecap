@@ -42,19 +42,26 @@ def showAddRaspberry():
 @app.route('/plotResults')
 def plotResults():
     
+    import MySQLdb as sql
+
     def db(database_name='test'):
         return sql.connect(host='us-cdbr-iron-east-05.cleardb.net', database='heroku_8ed35d7a87fe1ad', user='b99b4e9fb9ac2b', password='8cf9b237')
     def query_db(query, args=(), one=False):
         cur = db().cursor()
         cur.execute(query, args)
         r = [dict((cur.description[i][0], value) \
-                  for i, value in enumerate(row)) for row in cur.fetchall()]
+                     for i, value in enumerate(row)) for row in cur.fetchall()]
         cur.connection.close()
         return (r[0] if r else None) if one else r  
- 
+
     j2 = query_db("SELECT date,rate FROM rate_values")
-    j2 = json.dumps(j2)
-    return render_template("plotResults.html", res = j2)
+
+    dates = [i['date'] for i in j2 if 'date' in i]
+    rates = [i['rate'] for i in j2 if 'rate' in i]
+
+    d=dict(zip(dates,rates))
+
+    return render_template("plotResults.html", res = d)
 
 @app.route('/addRaspberry',methods=['POST'])
 def addRaspberry():
